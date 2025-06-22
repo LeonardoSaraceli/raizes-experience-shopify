@@ -185,8 +185,11 @@ if (!customElements.get('product-form')) {
           bookingListContainerUl.innerHTML = ''
           checkAvailabilityBtn.disabled = true
 
+          const productId =
+            document.getElementById('product-data')?.dataset.productId
+
           fetch(
-            `https://raizes-experience-backend.onrender.com/booking?start_datetime=${checkAvailabilityInput.value}&check_time=true&shopify_product_id={{ product.id }}`
+            `https://raizes-experience-backend.onrender.com/booking?start_datetime=${checkAvailabilityInput.value}&check_time=true&shopify_product_id=${productId}`
           )
             .then((res) => {
               if (!res.ok) {
