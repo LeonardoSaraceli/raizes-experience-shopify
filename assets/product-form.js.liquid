@@ -209,7 +209,7 @@ if (!customElements.get('product-form')) {
                       li.classList.add('active')
 
                       if (bookingInput) {
-                        bookingInput.value = li.getAttribute('booking_id')
+                        bookingInput.value = booking.id
                       }
                     }
 
@@ -222,7 +222,7 @@ if (!customElements.get('product-form')) {
                           currentActive.classList.remove('active')
 
                         if (bookingInput) {
-                          bookingInput.value = li.getAttribute('booking_id')
+                          bookingInput.value = booking.id
                         }
 
                         li.classList.add('active')
