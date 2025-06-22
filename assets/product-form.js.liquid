@@ -186,7 +186,7 @@ if (!customElements.get('product-form')) {
           checkAvailabilityBtn.disabled = true
 
           fetch(
-            `https://raizes-experience-backend.onrender.com/booking?start_datetime=${checkAvailabilityInput.value}&check_time=true`
+            `https://raizes-experience-backend.onrender.com/booking?start_datetime=${checkAvailabilityInput.value}&check_time=true&shopify_product_id={{ product.id }}`
           )
             .then((res) => {
               if (!res.ok) {
