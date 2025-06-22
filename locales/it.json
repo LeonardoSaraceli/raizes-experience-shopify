@@ -131,6 +131,7 @@
       },
       "share": "Condividi questo prodotto",
       "sold_out": "Esaurito",
+      "check_availability": "Verifica la disponibilità",
       "unavailable": "Non disponibile",
       "vendor": "Fornitore",
       "video_exit_message": "{{ title }} apre un video a schermo intero nella stessa finestra.",

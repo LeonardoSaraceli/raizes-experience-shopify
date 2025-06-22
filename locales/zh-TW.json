@@ -131,6 +131,7 @@
       },
       "share": "分享產品",
       "sold_out": "售罄",
+      "check_availability": "檢查空房狀況",
       "unavailable": "無法供貨",
       "vendor": "廠商",
       "video_exit_message": "{{ title }} 在同一視窗開啟全螢幕影片。",

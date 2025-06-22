@@ -114,6 +114,7 @@
       "product_variants": "Različice izdelka",
       "share": "Deli ta izdelek",
       "sold_out": "Razprodano",
+      "check_availability": "Preverite razpoložljivost",
       "unavailable": "Ni na voljo",
       "vendor": "Prodajalec",
       "video_exit_message": "{{ title }} odpre celozaslonski videoposnetek v istem oknu.",

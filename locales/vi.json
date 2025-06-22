@@ -131,6 +131,7 @@
       },
       "share": "Chia sẻ sản phẩm này",
       "sold_out": "Đã bán hết",
+      "check_availability": "Kiểm tra phòng trống",
       "unavailable": "Không có sẵn",
       "vendor": "Nhà cung cấp",
       "video_exit_message": "{{ title }} mở video toàn màn hình ở cùng một cửa sổ.",

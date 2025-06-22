@@ -130,6 +130,7 @@
       },
       "share": "Del dette produktet",
       "sold_out": "Utsolgt",
+      "check_availability": "Sjekk tilgjengelighet",
       "unavailable": "Utilgjengelig",
       "vendor": "Selger",
       "video_exit_message": "{{ title }} åpner en fullskjermvideo i det samme vinduet.",

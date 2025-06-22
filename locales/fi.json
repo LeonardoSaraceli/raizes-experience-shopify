@@ -130,6 +130,7 @@
       },
       "share": "Jaa tämä tuote",
       "sold_out": "Loppuunmyyty",
+      "check_availability": "Tarkista saatavuus",
       "unavailable": "Ei käytettävissä",
       "vendor": "Myyjä",
       "video_exit_message": "{{ title }} avaa koko näytön videon samassa ikkunassa.",

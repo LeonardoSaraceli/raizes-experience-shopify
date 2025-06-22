@@ -131,6 +131,7 @@
       },
       "share": "この商品を共有する",
       "sold_out": "売り切れ",
+      "check_availability": "空き状況を確認する",
       "unavailable": "利用できません",
       "vendor": "販売元",
       "video_exit_message": "{{ title }}は同じウィンドウの全画面表示ビデオで開きます。",

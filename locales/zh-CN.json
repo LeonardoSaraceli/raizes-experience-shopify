@@ -131,6 +131,7 @@
       },
       "share": "分享此产品",
       "sold_out": "售罄",
+      "check_availability": "检查空房情况",
       "unavailable": "不可用",
       "vendor": "厂商",
       "video_exit_message": "{{ title }} 在同一窗口中打开全屏视频。",

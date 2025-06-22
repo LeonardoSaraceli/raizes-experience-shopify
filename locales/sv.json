@@ -130,6 +130,7 @@
       },
       "share": "Dela den här produkten",
       "sold_out": "Slutsåld",
+      "check_availability": "Kontrollera tillgänglighet",
       "unavailable": "Inte tillgängliga",
       "vendor": "Säljare",
       "video_exit_message": "{{ title }} öppnar helskärmsvideo i samma fönster.",

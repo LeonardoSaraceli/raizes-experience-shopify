@@ -130,6 +130,7 @@
       },
       "share": "Bu ürünü paylaş",
       "sold_out": "Tükendi",
+      "check_availability": "Müsaitliği kontrol et",
       "unavailable": "Kullanım dışı",
       "vendor": "Satıcı",
       "video_exit_message": "{{ title }} aynı pencerede tam ekran video açar.",

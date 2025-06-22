@@ -131,6 +131,7 @@
       },
       "share": "A termék megosztása",
       "sold_out": "Elfogyott",
+      "check_availability": "Ellenőrizze a rendelkezésre állást",
       "unavailable": "Nincs készleten",
       "vendor": "Forgalmazó",
       "video_exit_message": "{{ title }}: a teljes képernyős videó ugyanabban az ablakban nyílik meg.",

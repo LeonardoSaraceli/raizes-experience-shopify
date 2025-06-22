@@ -131,6 +131,7 @@
       },
       "share": "Bagikan produk ini",
       "sold_out": "Habis",
+      "check_availability": "Periksa ketersediaan",
       "unavailable": "Tidak Tersedia",
       "vendor": "Vendor",
       "video_exit_message": "{{ title }} membuka video layar penuh di jendela yang sama.",
