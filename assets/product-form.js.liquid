@@ -193,6 +193,7 @@ if (!customElements.get('product-form')) {
           const bookingsListContainer = document.getElementById(
             'booking-list-container'
           )
+
           const bookingListContainerUl =
             bookingsListContainer.querySelector('ul')
 
@@ -230,21 +231,6 @@ if (!customElements.get('product-form')) {
                           currentActive.classList.remove('active')
 
                         li.classList.add('active')
-
-                        let bookingIdInput = document.querySelector(
-                          'input[name="properties[booking_id]"]'
-                        )
-
-                        if (!bookingIdInput) {
-                          bookingIdInput = document.createElement('input')
-                          bookingIdInput.type = 'hidden'
-                          bookingIdInput.name = 'properties[booking_id]'
-                          document
-                            .querySelector('form')
-                            .appendChild(bookingIdInput)
-                        }
-
-                        bookingIdInput.value = li.getAttribute('booking_id')
                       }
                     })
 
@@ -260,6 +246,27 @@ if (!customElements.get('product-form')) {
                     return li
                   })
                 )
+
+                const checkoutBtn = document.querySelector(
+                  '.shopify-payment-button__button'
+                )
+
+                if (checkoutBtn) {
+                  checkoutBtn.addEventListener('click', function () {
+                    if (
+                      bookingsListContainer &&
+                      bookingsListContainer.style.display !== 'none'
+                    ) {
+                      const activeLi =
+                        bookingsListContainer.querySelector('ul li.active')
+
+                      if (activeLi) {
+                        const bookingId = activeLi.getAttribute('booking_id')
+                        formData.append('properties[booking_id]', bookingId)
+                      }
+                    }
+                  })
+                }
               }
             })
             .catch(console.error)
