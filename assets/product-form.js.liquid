@@ -35,21 +35,6 @@ if (!customElements.get('product-form')) {
         delete config.headers['Content-Type']
 
         const formData = new FormData(this.form)
-        const bookingListContainer = document.getElementById(
-          'booking-list-container'
-        )
-
-        if (
-          bookingListContainer &&
-          bookingListContainer.style.display !== 'none'
-        ) {
-          const activeLi = bookingListContainer.querySelector('ul li.active')
-
-          if (activeLi) {
-            const bookingId = activeLi.getAttribute('booking_id')
-            formData.append('properties[booking_id]', bookingId)
-          }
-        }
 
         if (this.cart) {
           formData.append(
@@ -217,9 +202,15 @@ if (!customElements.get('product-form')) {
                 bookingListContainerUl.append(
                   ...data.bookings.map((booking, index) => {
                     const li = document.createElement('li')
+                    const bookingInput =
+                      document.getElementById('booking-id-field')
 
                     if (index === 0) {
                       li.classList.add('active')
+
+                      if (bookingInput) {
+                        bookingInput.value = li.getAttribute('booking_id')
+                      }
                     }
 
                     li.addEventListener('click', function () {
@@ -229,6 +220,10 @@ if (!customElements.get('product-form')) {
 
                         if (currentActive)
                           currentActive.classList.remove('active')
+
+                        if (bookingInput) {
+                          bookingInput.value = li.getAttribute('booking_id')
+                        }
 
                         li.classList.add('active')
                       }
@@ -246,27 +241,6 @@ if (!customElements.get('product-form')) {
                     return li
                   })
                 )
-
-                const checkoutBtn = document.querySelector(
-                  '.shopify-payment-button__button'
-                )
-
-                if (checkoutBtn) {
-                  checkoutBtn.addEventListener('click', function () {
-                    if (
-                      bookingsListContainer &&
-                      bookingsListContainer.style.display !== 'none'
-                    ) {
-                      const activeLi =
-                        bookingsListContainer.querySelector('ul li.active')
-
-                      if (activeLi) {
-                        const bookingId = activeLi.getAttribute('booking_id')
-                        formData.append('properties[booking_id]', bookingId)
-                      }
-                    }
-                  })
-                }
               }
             })
             .catch(console.error)
