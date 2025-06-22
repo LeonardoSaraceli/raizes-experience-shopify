@@ -230,6 +230,21 @@ if (!customElements.get('product-form')) {
                           currentActive.classList.remove('active')
 
                         li.classList.add('active')
+
+                        let bookingIdInput = document.querySelector(
+                          'input[name="properties[booking_id]"]'
+                        )
+
+                        if (!bookingIdInput) {
+                          bookingIdInput = document.createElement('input')
+                          bookingIdInput.type = 'hidden'
+                          bookingIdInput.name = 'properties[booking_id]'
+                          document
+                            .querySelector('form')
+                            .appendChild(bookingIdInput)
+                        }
+
+                        bookingIdInput.value = li.getAttribute('booking_id')
                       }
                     })
 
