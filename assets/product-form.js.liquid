@@ -313,7 +313,7 @@ if (!customElements.get('product-form')) {
                   )
                 } else {
                   const noBookingFound = document.createElement('span')
-                  noBookingFound.innerText = '0 resultados'
+                  noBookingFound.innerText = {{ 'inventory-not-found' | t }}
                   noBookingFound.setAttribute('id', 'no-booking-found')
 
                   bookingsListContainer.style.marginTop = '2.5rem'
