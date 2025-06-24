@@ -315,6 +315,8 @@ if (!customElements.get('product-form')) {
                   const noBookingFound = document.createElement('span')
                   noBookingFound.innerText = '0 resultados'
                   noBookingFound.setAttribute('id', 'no-booking-found')
+
+                  bookingsListContainer.style.marginTop = '2.5rem'
                   bookingsListContainer.append(noBookingFound)
                 }
               }
