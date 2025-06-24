@@ -197,7 +197,7 @@ if (!customElements.get('product-form')) {
               return res.json()
             })
             .then((data) => {
-              if (data && data.bookings) {
+              if (data && data.bookings && data.bookings.length > 0) {
                 const productData = document.getElementById('product-data');
                 const sectionId = productData.dataset.sectionId;
                 const translations = JSON.parse(productData.dataset.translations);
