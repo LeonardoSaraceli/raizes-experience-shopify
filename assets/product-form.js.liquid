@@ -269,8 +269,6 @@ if (!customElements.get('product-form')) {
                   const bookingListContainerUl =
                     bookingsListContainer.querySelector('ul')
 
-                  bookingsListContainer.style.display = 'block'
-
                   bookingListContainerUl.append(
                     ...data.bookings.map((booking, index) => {
                       const li = document.createElement('li')

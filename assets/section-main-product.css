@@ -43,10 +43,6 @@ product-info {
   cursor: pointer;
 }
 
-#booking-list-container {
-  display: none;
-}
-
 #booking-list-container ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(67px, max-content));
