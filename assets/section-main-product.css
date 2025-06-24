@@ -43,7 +43,7 @@ product-info {
 
 #booking-list-container ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(67px, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(0, max-content));
   list-style-type: none;
   gap: 1rem;
   padding: 0;
