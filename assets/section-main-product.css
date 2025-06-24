@@ -24,24 +24,30 @@ product-info {
   border: 1px solid currentColor;
 }
 
+#booking-form-container {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 1rem;
+}
+
 #booking-form-container > button {
   padding: 1.5rem;
   background: transparent;
   border: 1px solid currentColor;
+  cursor: pointer;
 }
 
 #booking-list-container {
   display: none;
-  margin-top: 2.5rem;
 }
 
 #booking-list-container ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(67px, max-content));
   list-style-type: none;
   gap: 1rem;
   padding: 0;
-  margin: 0;
+  margin: 2.5rem 0;
 }
 
 #booking-list-container ul li {
