@@ -296,7 +296,6 @@ if (!customElements.get('product-form')) {
   
                       document.body.appendChild(virtualForm)
                       virtualForm.submit()
-                        .then(() => window.location.href = '/checkout')
                     })
                   } else {
                     productSubmitBtn.classList.add('button--primary')
