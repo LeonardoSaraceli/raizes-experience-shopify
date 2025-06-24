@@ -9,44 +9,59 @@
  */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "slideshow_xwUVtf": {
+      "type": "slideshow",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "slide_Ub3TxH": {
+          "type": "slide",
           "settings": {
-            "heading": "",
-            "heading_size": "h0"
+            "image": "shopify://shop_images/10.png",
+            "image_overlay_opacity": 0,
+            "heading": "<strong>TRILHAS DIÁRIAS NO RJ</strong>",
+            "heading_size": "h1",
+            "subheading": "Partidas todos os dias, guias especializados e vistas incríveis em cada passo.",
+            "button_label": "Agendar agora",
+            "link": "shopify://collections/saidas-diarias",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
           }
         },
-        "button": {
-          "type": "buttons",
+        "slide_6XwYxx": {
+          "type": "slide",
           "settings": {
-            "button_label_1": "",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "image_overlay_opacity": 0,
+            "heading": "Slide de imagem",
+            "heading_size": "h1",
+            "subheading": "Conte a história de sua marca com vídeos e imagens",
+            "button_label": "Etiqueta de botão",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": true,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "slide_Ub3TxH",
+        "slide_6XwYxx"
       ],
+      "name": "t:sections.slideshow.presets.name",
       "settings": {
-        "image": "shopify://shop_images/10.png",
-        "image_overlay_opacity": 10,
-        "image_height": "medium",
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "dots",
+        "auto_rotate": true,
+        "change_slides_speed": 5,
         "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "show_text_below": false,
+        "accessibility_info": "Apresentação de slides sobre nossa marca"
       }
     },
     "featured_collection": {
@@ -79,7 +94,7 @@
     }
   },
   "order": [
-    "image_banner",
+    "slideshow_xwUVtf",
     "featured_collection"
   ]
 }
