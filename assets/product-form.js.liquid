@@ -217,7 +217,8 @@ if (!customElements.get('product-form')) {
                 
                 const isVariantAvailable = productData.dataset.productVariantAvailable === 'true';
                 
-                bookingsListContainer.innerHTML += `
+                bookingsListContainer.innerHTML = `
+                  <ul></ul>
                   <div class="product-form__buttons"></div>
                 `;
                 
