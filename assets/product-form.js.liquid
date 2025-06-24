@@ -197,102 +197,128 @@ if (!customElements.get('product-form')) {
               return res.json()
             })
             .then((data) => {
-              if (data && data.bookings && data.bookings.length > 0) {
-                const productData = document.getElementById('product-data');
-                const sectionId = productData.dataset.sectionId;
-                const translations = JSON.parse(productData.dataset.translations);
-                
-                const inventoryPolicy = productData.dataset.inventoryPolicy;
-                const inventoryManagement = productData.dataset.inventoryManagement;
-                const inventoryQuantity = parseInt(productData.dataset.inventoryQuantity);
-                const quantityRuleMin = parseInt(productData.dataset.quantityRuleMin);
-                
-                const checkAgainstInventory = !(
-                  inventoryManagement !== 'shopify' || 
-                  inventoryPolicy === 'continue'
-                );
-                
-                const quantityRuleSoldout = checkAgainstInventory && 
-                                           quantityRuleMin > inventoryQuantity;
-                
-                const isVariantAvailable = productData.dataset.productVariantAvailable === 'true';
-                
-                bookingsListContainer.innerHTML = `
+              if (data && data.bookings) {
+                if (data.bookings.length > 0) {
+                  const productData = document.getElementById('product-data')
+                  const sectionId = productData.dataset.sectionId
+                  const translations = JSON.parse(
+                    productData.dataset.translations
+                  )
+
+                  const inventoryPolicy = productData.dataset.inventoryPolicy
+                  const inventoryManagement =
+                    productData.dataset.inventoryManagement
+                  const inventoryQuantity = parseInt(
+                    productData.dataset.inventoryQuantity
+                  )
+                  const quantityRuleMin = parseInt(
+                    productData.dataset.quantityRuleMin
+                  )
+
+                  const checkAgainstInventory = !(
+                    inventoryManagement !== 'shopify' ||
+                    inventoryPolicy === 'continue'
+                  )
+
+                  const quantityRuleSoldout =
+                    checkAgainstInventory && quantityRuleMin > inventoryQuantity
+
+                  const isVariantAvailable =
+                    productData.dataset.productVariantAvailable === 'true'
+
+                  bookingsListContainer.innerHTML = `
                   <ul></ul>
                   <div class="product-form__buttons"></div>
-                `;
-                
-                const productFormBtns = bookingsListContainer.querySelector(".product-form__buttons");
-                productFormBtns.innerHTML = `
+                `
+
+                  const productFormBtns = bookingsListContainer.querySelector(
+                    '.product-form__buttons'
+                  )
+                  productFormBtns.innerHTML = `
                   <button
                     id="ProductSubmitButton-${sectionId}"
                     type="submit"
                     name="add"
                     class="product-form__submit button button--full-width"
-                    ${(!isVariantAvailable || quantityRuleSoldout) ? 'disabled' : ''}
+                    ${
+                      !isVariantAvailable || quantityRuleSoldout
+                        ? 'disabled'
+                        : ''
+                    }
                   >
                     <span>
-                      ${!isVariantAvailable ? translations.unavailable : 
-                        quantityRuleSoldout ? translations.sold_out : 
-                        translations.add_to_cart}
+                      ${
+                        !isVariantAvailable
+                          ? translations.unavailable
+                          : quantityRuleSoldout
+                          ? translations.sold_out
+                          : translations.add_to_cart
+                      }
                     </span>
                   </button>
-                `;
-                
-                const productSubmitBtn = productFormBtns.querySelector("button");
-                if (productData.dataset.showDynamicCheckout === 'true') {
-                  productSubmitBtn.classList.add("button--secondary");
-                } else {
-                  productSubmitBtn.classList.add("button--primary");
-                }
+                `
 
-                const bookingListContainerUl =
-                  bookingsListContainer.querySelector('ul')
+                  const productSubmitBtn =
+                    productFormBtns.querySelector('button')
+                  if (productData.dataset.showDynamicCheckout === 'true') {
+                    productSubmitBtn.classList.add('button--secondary')
+                  } else {
+                    productSubmitBtn.classList.add('button--primary')
+                  }
 
-                bookingsListContainer.style.display = 'block'
+                  const bookingListContainerUl =
+                    bookingsListContainer.querySelector('ul')
 
-                bookingListContainerUl.append(
-                  ...data.bookings.map((booking, index) => {
-                    const li = document.createElement('li')
-                    const bookingInput =
-                      document.getElementById('booking-id-field')
+                  bookingsListContainer.style.display = 'block'
 
-                    if (index === 0) {
-                      li.classList.add('active')
+                  bookingListContainerUl.append(
+                    ...data.bookings.map((booking, index) => {
+                      const li = document.createElement('li')
+                      const bookingInput =
+                        document.getElementById('booking-id-field')
 
-                      if (bookingInput) {
-                        bookingInput.value = booking.id
-                      }
-                    }
-
-                    li.addEventListener('click', function () {
-                      if (li.className !== 'active') {
-                        const currentActive =
-                          bookingListContainerUl.querySelector('li.active')
-
-                        if (currentActive)
-                          currentActive.classList.remove('active')
+                      if (index === 0) {
+                        li.classList.add('active')
 
                         if (bookingInput) {
                           bookingInput.value = booking.id
                         }
-
-                        li.classList.add('active')
                       }
-                    })
 
-                    li.setAttribute('booking_id', booking.id)
-                    li.textContent = new Date(
-                      booking.start_datetime
-                    ).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: false,
-                    })
+                      li.addEventListener('click', function () {
+                        if (li.className !== 'active') {
+                          const currentActive =
+                            bookingListContainerUl.querySelector('li.active')
 
-                    return li
-                  })
-                )
+                          if (currentActive)
+                            currentActive.classList.remove('active')
+
+                          if (bookingInput) {
+                            bookingInput.value = booking.id
+                          }
+
+                          li.classList.add('active')
+                        }
+                      })
+
+                      li.setAttribute('booking_id', booking.id)
+                      li.textContent = new Date(
+                        booking.start_datetime
+                      ).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                      })
+
+                      return li
+                    })
+                  )
+                } else {
+                  const noBookingFound = document.createElement('span')
+                  noBookingFound.innerText = '0 resultados'
+                  noBookingFound.setAttribute('id', 'no-booking-found')
+                  bookingsListContainer.append(noBookingFound)
+                }
               }
             })
             .catch(console.error)
