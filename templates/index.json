@@ -15,6 +15,24 @@
         "slide_Ub3TxH": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Banners_Site_Raizes_Experience_2.png",
+            "image_overlay_opacity": 0,
+            "heading": "<strong>PLANEJE SUA PRÓXIMA VIAGEM COM A GENTE</strong>",
+            "heading_size": "h1",
+            "subheading": "Pacotes completos, passagens e experiências personalizadas em todo o Brasil",
+            "button_label": "Cote sua passagem aqui",
+            "link": "shopify://collections/saidas-diarias",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
+        "slide_FWtbem": {
+          "type": "slide",
+          "settings": {
             "image": "shopify://shop_images/10.png",
             "image_overlay_opacity": 0,
             "heading": "<strong>TRILHAS DIÁRIAS NO RJ</strong>",
@@ -29,28 +47,11 @@
             "text_alignment_mobile": "center",
             "color_scheme": "scheme-3"
           }
-        },
-        "slide_cAqbcF": {
-          "type": "slide",
-          "settings": {
-            "image_overlay_opacity": 0,
-            "heading": "Slide de imagem",
-            "heading_size": "h1",
-            "subheading": "Conte a história de sua marca com vídeos e imagens",
-            "button_label": "Etiqueta de botão",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-1"
-          }
         }
       },
       "block_order": [
         "slide_Ub3TxH",
-        "slide_cAqbcF"
+        "slide_FWtbem"
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
