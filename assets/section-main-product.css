@@ -19,8 +19,20 @@ product-info {
   padding-left: 0;
 }
 
+#start-datetime {
+  padding: 1.5rem;
+  border: 1px solid currentColor;
+}
+
+#booking-form-container > button {
+  padding: 1.5rem;
+  background: transparent;
+  border: 1px solid currentColor;
+}
+
 #booking-list-container {
   display: none;
+  margin-top: 2.5rem;
 }
 
 #booking-list-container ul {
