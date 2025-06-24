@@ -1200,6 +1200,10 @@ button.shopify-payment-button__button--unbranded {
   position: relative;
 }
 
+button.shopify-payment-button__button--unbranded {
+  width: 100%;
+}
+
 .button,
 .shopify-challenge__button,
 .customer button,
