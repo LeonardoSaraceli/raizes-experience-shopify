@@ -266,7 +266,7 @@ if (!customElements.get('product-form')) {
                     productSubmitBtn.classList.add('button--primary')
                   }
 
-                  if (productData.dataset.data-show-dynamic-checkout) {
+                  if (productData.dataset.show-dynamic-checkout) {
                     const dynamicCheckoutWrapper = document.createElement('div');
                     dynamicCheckoutWrapper.className = 'shopify-payment-button';
                     productFormBtns.appendChild(dynamicCheckoutWrapper);
