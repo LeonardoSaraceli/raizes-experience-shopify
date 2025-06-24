@@ -256,47 +256,63 @@ if (!customElements.get('product-form')) {
                   const productSubmitBtn = productFormBtns.querySelector('button')
   
                   if (productData.dataset.showDynamicCheckout === 'true') {
-                    productSubmitBtn.classList.add('button--secondary')
-  
-                    const dynamicCheckoutWrapper = document.createElement('div')
-                    dynamicCheckoutWrapper.className = 'shopify-payment-button'
-                    productFormBtns.appendChild(dynamicCheckoutWrapper)
-  
-                    const paymentButton = document.createElement('button')
-                    paymentButton.className =
-                      'shopify-payment-button__button shopify-payment-button__button--unbranded'
-                    paymentButton.type = 'button'
-  
-                    paymentButton.textContent =
-                      "{{ 'sections.cart.checkout' | t }}"
-  
-                    dynamicCheckoutWrapper.appendChild(paymentButton)
-  
-                    paymentButton.addEventListener('click', function () {
-                      const virtualForm = document.createElement('form')
-                      virtualForm.method = 'post'
-                      virtualForm.action = '/cart/add'
-  
-                      const variantInput = document.createElement('input')
-                      variantInput.type = 'hidden'
-                      variantInput.name = 'id'
-                      variantInput.value = productData.dataset.selectedVariantId
-                      virtualForm.appendChild(variantInput)
-  
-                      const bookingId =
-                        document.getElementById('booking-id-field')?.value
+                    productSubmitBtn.classList.add('button--secondary');
+                    
+                    const dynamicCheckoutWrapper = document.createElement('div');
+                    dynamicCheckoutWrapper.className = 'shopify-payment-button';
+                    productFormBtns.appendChild(dynamicCheckoutWrapper);
+                  
+                    const paymentButton = document.createElement('button');
+                    paymentButton.className = 'shopify-payment-button__button shopify-payment-button__button--unbranded';
+                    paymentButton.type = 'button';
+                    
+                    paymentButton.textContent = '{{ "products.product.buy_it_now" | t }}';
+                    
+                    dynamicCheckoutWrapper.appendChild(paymentButton);
+                  
+                    paymentButton.addEventListener('click', async function() {
+                      const bookingId = document.getElementById('booking-id-field')?.value;
                       
-                      if (bookingId) {
-                        const bookingInput = document.createElement('input')
-                        bookingInput.type = 'hidden'
-                        bookingInput.name = 'properties[Booking ID]'
-                        bookingInput.value = bookingId
-                        virtualForm.appendChild(bookingInput)
+                      const items = [{
+                        id: parseInt(productData.dataset.selectedVariantId),
+                        quantity: 1,
+                        properties: bookingId ? {'Booking ID': bookingId} : undefined
+                      }];
+                  
+                      try {
+                        const response = await fetch(window.Shopify.routes.root + 'cart/clear.js', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          }
+                        });
+                        
+                        await fetch(window.Shopify.routes.root + 'cart/clear.js', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          }
+                        });
+                  
+                        const addResponse = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json'
+                          },
+                          body: JSON.stringify({ items })
+                        });
+                        
+                        if (!addResponse.ok) {
+                          throw new Error('Failed to add to cart');
+                        }
+                  
+                        window.location.href = '/checkout';
+                        
+                      } catch (error) {
+                        console.error('Checkout error:', error);
+                        alert('{{ "products.product.checkout_error" | t }}');
                       }
-  
-                      document.body.appendChild(virtualForm)
-                      virtualForm.submit()
-                    })
+                    });
                   } else {
                     productSubmitBtn.classList.add('button--primary')
                   }
