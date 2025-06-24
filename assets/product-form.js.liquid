@@ -256,28 +256,28 @@ if (!customElements.get('product-form')) {
                   const productSubmitBtn = productFormBtns.querySelector('button')
   
                   if (productData.dataset.showDynamicCheckout === 'true') {
-                    productSubmitBtn.classList.add('button--secondary');
+                    productSubmitBtn.classList.add('button--secondary')
                     
-                    const dynamicCheckoutWrapper = document.createElement('div');
-                    dynamicCheckoutWrapper.className = 'shopify-payment-button';
-                    productFormBtns.appendChild(dynamicCheckoutWrapper);
+                    const dynamicCheckoutWrapper = document.createElement('div')
+                    dynamicCheckoutWrapper.className = 'shopify-payment-button'
+                    productFormBtns.appendChild(dynamicCheckoutWrapper)
                   
-                    const paymentButton = document.createElement('button');
-                    paymentButton.className = 'shopify-payment-button__button shopify-payment-button__button--unbranded';
-                    paymentButton.type = 'button';
+                    const paymentButton = document.createElement('button')
+                    paymentButton.className = 'shopify-payment-button__button shopify-payment-button__button--unbranded'
+                    paymentButton.type = 'button'
                     
-                    paymentButton.textContent = '{{ "sections.cart.checkout" | t }}';
+                    paymentButton.textContent = '{{ "sections.cart.checkout" | t }}'
                     
-                    dynamicCheckoutWrapper.appendChild(paymentButton);
+                    dynamicCheckoutWrapper.appendChild(paymentButton)
                   
                     paymentButton.addEventListener('click', async function() {
-                      const bookingId = document.getElementById('booking-id-field')?.value;
+                      const bookingId = document.getElementById('booking-id-field')?.value
                       
                       const items = [{
                         id: parseInt(productData.dataset.selectedVariantId),
                         quantity: 1,
                         properties: bookingId ? {'Booking ID': bookingId} : undefined
-                      }];
+                      }]
                   
                       try {
                         const response = await fetch(window.Shopify.routes.root + 'cart/clear.js', {
@@ -285,14 +285,14 @@ if (!customElements.get('product-form')) {
                           headers: {
                             'Content-Type': 'application/json'
                           }
-                        });
+                        })
                         
                         await fetch(window.Shopify.routes.root + 'cart/clear.js', {
                           method: 'POST',
                           headers: {
                             'Content-Type': 'application/json'
                           }
-                        });
+                        })
                   
                         const addResponse = await fetch(window.Shopify.routes.root + 'cart/add.js', {
                           method: 'POST',
@@ -300,19 +300,19 @@ if (!customElements.get('product-form')) {
                             'Content-Type': 'application/json'
                           },
                           body: JSON.stringify({ items })
-                        });
+                        })
                         
                         if (!addResponse.ok) {
-                          throw new Error('Failed to add to cart');
+                          throw new Error('Failed to add to cart')
                         }
                   
-                        window.location.href = '/checkout';
+                        window.location.href = '/checkout'
                         
                       } catch (error) {
-                        console.error('Checkout error:', error);
-                        alert('{{ "products.product.checkout_error" | t }}');
+                        console.error('Checkout error:', error)
+                        alert('{{ "sections.cart.cart_error" | t }}')
                       }
-                    });
+                    })
                   } else {
                     productSubmitBtn.classList.add('button--primary')
                   }
