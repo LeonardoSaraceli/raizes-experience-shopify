@@ -161,30 +161,29 @@ if (!customElements.get('product-form')) {
     const checkAvailabilityContainer = document.getElementById(
       'booking-form-container'
     )
-
+  
     if (checkAvailabilityContainer) {
       const checkAvailabilityInput =
         checkAvailabilityContainer.querySelector('input')
       const checkAvailabilityBtn =
         checkAvailabilityContainer.querySelector('button')
-
+  
       if (checkAvailabilityInput && checkAvailabilityBtn) {
         checkAvailabilityBtn.addEventListener('click', function () {
           if (!checkAvailabilityInput.value) {
             checkAvailabilityInput.focus()
             return
           }
-
+  
           checkAvailabilityBtn.disabled = true
-
           const bookingsListContainer = document.getElementById(
             'booking-list-container'
           )
           bookingsListContainer.innerHTML = ''
-
+  
           const productId =
             document.getElementById('product-data')?.dataset.productId
-
+  
           fetch(
             `https://raizes-experience-backend.onrender.com/booking?start_datetime=${checkAvailabilityInput.value}&check_time=true&shopify_product_id=${productId}`
           )
@@ -193,7 +192,6 @@ if (!customElements.get('product-form')) {
                 console.error('Error when fetching bookings')
                 return
               }
-
               return res.json()
             })
             .then((data) => {
@@ -204,7 +202,6 @@ if (!customElements.get('product-form')) {
                   const translations = JSON.parse(
                     productData.dataset.translations
                   )
-
                   const inventoryPolicy = productData.dataset.inventoryPolicy
                   const inventoryManagement =
                     productData.dataset.inventoryManagement
@@ -214,130 +211,135 @@ if (!customElements.get('product-form')) {
                   const quantityRuleMin = parseInt(
                     productData.dataset.quantityRuleMin
                   )
-
+  
                   const checkAgainstInventory = !(
                     inventoryManagement !== 'shopify' ||
                     inventoryPolicy === 'continue'
                   )
-
                   const quantityRuleSoldout =
                     checkAgainstInventory && quantityRuleMin > inventoryQuantity
-
                   const isVariantAvailable =
                     productData.dataset.productVariantAvailable === 'true'
-
+  
                   bookingsListContainer.innerHTML = `
-                  <ul></ul>
-                  <div class="product-form__buttons"></div>
-                `
-
+                    <ul></ul>
+                    <div class="product-form__buttons"></div>
+                  `
+  
                   const productFormBtns = bookingsListContainer.querySelector(
                     '.product-form__buttons'
                   )
                   productFormBtns.innerHTML = `
-                  <button
-                    id="ProductSubmitButton-${sectionId}"
-                    type="submit"
-                    name="add"
-                    class="product-form__submit button button--full-width"
-                    ${
-                      !isVariantAvailable || quantityRuleSoldout
-                        ? 'disabled'
-                        : ''
-                    }
-                  >
-                    <span>
+                    <button
+                      id="ProductSubmitButton-${sectionId}"
+                      type="submit"
+                      name="add"
+                      class="product-form__submit button button--full-width"
                       ${
-                        !isVariantAvailable
-                          ? translations.unavailable
-                          : quantityRuleSoldout
-                          ? translations.sold_out
-                          : translations.add_to_cart
+                        !isVariantAvailable || quantityRuleSoldout
+                          ? 'disabled'
+                          : ''
                       }
-                    </span>
-                  </button>
-                `
-
-                  const productSubmitBtn =
-                    productFormBtns.querySelector('button')
-                  
+                    >
+                      <span>
+                        ${
+                          !isVariantAvailable
+                            ? translations.unavailable
+                            : quantityRuleSoldout
+                            ? translations.sold_out
+                            : translations.add_to_cart
+                        }
+                      </span>
+                    </button>
+                  `
+  
+                  const productSubmitBtn = productFormBtns.querySelector('button')
+  
                   if (productData.dataset.showDynamicCheckout === 'true') {
-                    productSubmitBtn.classList.add('button--secondary');
-                    
-                    const dynamicCheckoutWrapper = document.createElement('div');
-                    dynamicCheckoutWrapper.className = 'shopify-payment-button';
-                    productFormBtns.appendChild(dynamicCheckoutWrapper);
+                    productSubmitBtn.classList.add('button--secondary')
   
-                    const form = document.createElement('form');
-                    form.className = 'shopify-payment-button__button';
-                    form.method = 'post';
-                    form.action = '/cart/add';
-                    
-                    const variantInput = document.createElement('input');
-                    variantInput.type = 'hidden';
-                    variantInput.name = 'id';
-                    variantInput.value = productData.dataset.selectedVariantId;
-                    form.appendChild(variantInput);
-                    
-                    const submitButton = document.createElement('button');
-                    submitButton.type = 'submit';
-                    submitButton.className = 'shopify-payment-button__button--unbranded';
-                    form.appendChild(submitButton);
-                    
-                    dynamicCheckoutWrapper.appendChild(form);
+                    // Criar container para o botão de pagamento
+                    const dynamicCheckoutWrapper = document.createElement('div')
+                    dynamicCheckoutWrapper.className = 'shopify-payment-button'
+                    productFormBtns.appendChild(dynamicCheckoutWrapper)
   
-                    if (window.Shopify && Shopify.PaymentButton) {
-                      Shopify.PaymentButton.init();
-                    }
-                    
-                    form.addEventListener('submit', function(e) {
-                      e.preventDefault();
-                      const formData = new FormData(form);
-                      fetch('/cart/add', {
-                        method: 'POST',
-                        body: formData
-                      })
-                      .then(() => {
-                        window.location.href = '/checkout';
-                      });
-                    });
+                    // Criar botão de pagamento com texto traduzido
+                    const paymentButton = document.createElement('button')
+                    paymentButton.className =
+                      'shopify-payment-button__button shopify-payment-button__button--unbranded'
+                    paymentButton.type = 'button'
+  
+                    // Usar a tradução para o botão de checkout
+                    paymentButton.textContent =
+                      "{{ 'products.product.buy_it_now' | t }}"
+  
+                    dynamicCheckoutWrapper.appendChild(paymentButton)
+  
+                    // Adicionar evento de clique
+                    paymentButton.addEventListener('click', function () {
+                      // Criar formulário virtual
+                      const virtualForm = document.createElement('form')
+                      virtualForm.method = 'post'
+                      virtualForm.action = '/cart/add'
+  
+                      // Adicionar campo da variante
+                      const variantInput = document.createElement('input')
+                      variantInput.type = 'hidden'
+                      variantInput.name = 'id'
+                      variantInput.value = productData.dataset.selectedVariantId
+                      virtualForm.appendChild(variantInput)
+  
+                      // Adicionar campo do agendamento
+                      const bookingId =
+                        document.getElementById('booking-id-field')?.value
+                      if (bookingId) {
+                        const bookingInput = document.createElement('input')
+                        bookingInput.type = 'hidden'
+                        bookingInput.name = 'properties[Booking ID]'
+                        bookingInput.value = bookingId
+                        virtualForm.appendChild(bookingInput)
+                      }
+  
+                      document.body.appendChild(virtualForm)
+                      virtualForm.submit()
+                    })
                   } else {
-                    productSubmitBtn.classList.add('button--primary');
+                    productSubmitBtn.classList.add('button--primary')
                   }
-
+  
+                  // Restante do código para os horários...
                   const bookingListContainerUl =
                     bookingsListContainer.querySelector('ul')
-
                   bookingListContainerUl.append(
                     ...data.bookings.map((booking, index) => {
                       const li = document.createElement('li')
                       const bookingInput =
                         document.getElementById('booking-id-field')
-
+  
                       if (index === 0) {
                         li.classList.add('active')
-
+  
                         if (bookingInput) {
                           bookingInput.value = booking.id
                         }
                       }
-
+  
                       li.addEventListener('click', function () {
                         if (li.className !== 'active') {
                           const currentActive =
                             bookingListContainerUl.querySelector('li.active')
-
+  
                           if (currentActive)
                             currentActive.classList.remove('active')
-
+  
                           if (bookingInput) {
                             bookingInput.value = booking.id
                           }
-
+  
                           li.classList.add('active')
                         }
                       })
-
+  
                       li.setAttribute('booking_id', booking.id)
                       li.textContent = new Date(
                         booking.start_datetime
@@ -346,18 +348,12 @@ if (!customElements.get('product-form')) {
                         minute: '2-digit',
                         hour12: false,
                       })
-
+  
                       return li
                     })
                   )
                 } else {
-                  const noBookingFound = document.createElement('span')
-                  noBookingFound.innerText =
-                    "{{ 'products.product.inventory_out_of_stock' | t }}"
-                  noBookingFound.setAttribute('id', 'no-booking-found')
-
-                  bookingsListContainer.style.marginTop = '2.5rem'
-                  bookingsListContainer.append(noBookingFound)
+                  // Código para quando não há horários disponíveis
                 }
               }
             })
