@@ -30,26 +30,9 @@
             "color_scheme": "scheme-3"
           }
         },
-        "slide_Ub3TxH": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/Banners_Site_Raizes_Experience_2.png",
-            "image_overlay_opacity": 0,
-            "heading": "<strong>PLANEJE SUA PRÓXIMA VIAGEM COM A GENTE</strong>",
-            "heading_size": "h1",
-            "subheading": "Pacotes completos, passagens e experiências personalizadas em todo o Brasil",
-            "button_label": "Cote sua passagem aqui",
-            "link": "https://wa.me/5521996761586",
-            "button_style_secondary": false,
-            "show_text_box": false,
-            "box_align": "middle-left",
-            "text_alignment": "left",
-            "text_alignment_mobile": "center",
-            "color_scheme": "scheme-3"
-          }
-        },
         "slide_ezzdkR": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Banners_Site_Raizes_Experience_3.png",
             "image_overlay_opacity": 0,
@@ -69,7 +52,6 @@
       },
       "block_order": [
         "slide_FWtbem",
-        "slide_Ub3TxH",
         "slide_ezzdkR"
       ],
       "name": "t:sections.slideshow.presets.name",
