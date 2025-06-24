@@ -67,7 +67,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "all",
+        "collection": "saidas-diarias",
         "products_to_show": 8,
         "title": "Saídas Diárias",
         "heading_size": "h2",
