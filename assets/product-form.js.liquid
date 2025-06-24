@@ -198,67 +198,52 @@ if (!customElements.get('product-form')) {
             })
             .then((data) => {
               if (data && data.bookings) {
-                bookingsListContainer.innerHTML = `
-                  <ul></ul>
+                const productData = document.getElementById('product-data');
+                const sectionId = productData.dataset.sectionId;
+                const translations = JSON.parse(productData.dataset.translations);
+                
+                const inventoryPolicy = productData.dataset.inventoryPolicy;
+                const inventoryManagement = productData.dataset.inventoryManagement;
+                const inventoryQuantity = parseInt(productData.dataset.inventoryQuantity);
+                const quantityRuleMin = parseInt(productData.dataset.quantityRuleMin);
+                
+                const checkAgainstInventory = !(
+                  inventoryManagement !== 'shopify' || 
+                  inventoryPolicy === 'continue'
+                );
+                
+                const quantityRuleSoldout = checkAgainstInventory && 
+                                           quantityRuleMin > inventoryQuantity;
+                
+                const isVariantAvailable = productData.dataset.productVariantAvailable === 'true';
+                
+                bookingsListContainer.innerHTML += `
                   <div class="product-form__buttons"></div>
-                `
-
-                {% assign check_against_inventory = true %}
-
-                {% if product.selected_or_first_available_variant.inventory_management != 'shopify' 
-                   or product.selected_or_first_available_variant.inventory_policy == 'continue' 
-                %}
-                  {% assign check_against_inventory = false %}
-                {% endif %}
-
-                {% if product.selected_or_first_available_variant.quantity_rule.min > product.selected_or_first_available_variant.inventory_quantity and check_against_inventory %}
-                  {% assign quantity_rule_soldout = true %}
-                {% endif %}
-
-                const productFormBtns = bookingsListContainer.querySelector(".product-form__buttons")
-                const sectionId = {{ section_id }}
-
+                `;
+                
+                const productFormBtns = bookingsListContainer.querySelector(".product-form__buttons");
                 productFormBtns.innerHTML = `
                   <button
                     id="ProductSubmitButton-${sectionId}"
                     type="submit"
                     name="add"
                     class="product-form__submit button button--full-width"
+                    ${(!isVariantAvailable || quantityRuleSoldout) ? 'disabled' : ''}
                   >
-                    <span></span>
+                    <span>
+                      ${!isVariantAvailable ? translations.unavailable : 
+                        quantityRuleSoldout ? translations.sold_out : 
+                        translations.add_to_cart}
+                    </span>
                   </button>
-                `
+                `;
                 
-                const productSubmitBtn = productFormBtns.querySelector("button")
-
-                {% if show_dynamic_checkout %}
-                  productSubmitBtn.classList.add("button--secondary") 
-                {% else %}
-                  productSubmitBtn.classList.add("button--primary") 
-                {% endif %}
-
-                {% if product.selected_or_first_available_variant.available == false
-                  or quantity_rule_soldout
-                  or product.selected_or_first_available_variant == null
-                %}
-                  productSubmitBtn.disabled = true
-                {% endif %}
-
-                const productSubmitBtnSpan = productSubmitBtn.querySelector("span")
-                
-                {%- if product.selected_or_first_available_variant == null -%}
-                  productSubmitBtnSpan.innerText = {{ 'products.product.unavailable' | t }}
-                {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
-                  productSubmitBtnSpan.innerText = {{ 'products.product.sold_out' | t }}
-                {%- else -%}
-                  productSubmitBtnSpan.innerText = {{ 'products.product.add_to_cart' | t }}
-                {%- endif -%}
-                
-                productSubmitBtn.innerHTML += {%- render 'loading-spinner' -%}
-                    
-                {%- if show_dynamic_checkout -%}
-                  productFormBtns.innerHTML += {{ form | payment_button }}
-                {%- endif -%}
+                const productSubmitBtn = productFormBtns.querySelector("button");
+                if (productData.dataset.showDynamicCheckout === 'true') {
+                  productSubmitBtn.classList.add("button--secondary");
+                } else {
+                  productSubmitBtn.classList.add("button--primary");
+                }
 
                 const bookingListContainerUl =
                   bookingsListContainer.querySelector('ul')
