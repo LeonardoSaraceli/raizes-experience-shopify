@@ -320,7 +320,9 @@
   </div>
 </footer>
 
-{% render 'whatsapp-icon', show: section.settings.whatsapp_box %}
+{% if section.settings.whatsapp_box %}
+  {% render 'whatsapp-icon' %}
+{% endif %}
 
 {% schema %}
 {
