@@ -260,12 +260,15 @@ if (!customElements.get('product-form')) {
 
                   const productSubmitBtn =
                     productFormBtns.querySelector('button')
+
+                  console.log(productData.dataset.showDynamicCheckout)
+                  
                   if (productData.dataset.showDynamicCheckout === 'true') {
-                    productSubmitBtn.classList.add('button--secondary');
+                    productSubmitBtn.classList.add('button--secondary')
                     
-                    const dynamicCheckoutWrapper = document.createElement('div');
-                    dynamicCheckoutWrapper.className = 'shopify-payment-button';
-                    productFormBtns.appendChild(dynamicCheckoutWrapper);
+                    const dynamicCheckoutWrapper = document.createElement('div')
+                    dynamicCheckoutWrapper.className = 'shopify-payment-button'
+                    productFormBtns.appendChild(dynamicCheckoutWrapper)
                   
                     if (window.Shopify && Shopify.PaymentButton) {
                       Shopify.PaymentButton.init({
@@ -276,10 +279,10 @@ if (!customElements.get('product-form')) {
                           title: document.querySelector('.product__title')?.innerText || '{{ product.title | escape }}',
                           price: '{{ product.price | money_without_currency }}'
                         }
-                      });
+                      })
                     }
                   } else {
-                    productSubmitBtn.classList.add('button--primary');
+                    productSubmitBtn.classList.add('button--primary')
                   }
 
                   const bookingListContainerUl =
