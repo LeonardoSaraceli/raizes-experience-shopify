@@ -36,6 +36,12 @@ product-info {
   }
 }
 
+#start-datetime-container {
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+  gap: 0.5rem;
+}
+
 #booking-form-container > button {
   padding: 1.5rem;
   background: transparent;
