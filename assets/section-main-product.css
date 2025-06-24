@@ -37,6 +37,11 @@ product-info {
   }
 }
 
+.shopify-payment-button {
+  margin-top: 12px;
+  width: 100%;
+}
+
 #start-datetime-container {
   display: grid;
   grid-template-rows: repeat(2, max-content);

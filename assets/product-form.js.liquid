@@ -266,6 +266,24 @@ if (!customElements.get('product-form')) {
                     productSubmitBtn.classList.add('button--primary')
                   }
 
+                  if (productData.dataset.data-show-dynamic-checkout) {
+                    const dynamicCheckoutWrapper = document.createElement('div');
+                    dynamicCheckoutWrapper.className = 'shopify-payment-button';
+                    productFormBtns.appendChild(dynamicCheckoutWrapper);
+                  
+                    if (window.Shopify && Shopify.PaymentButton) {
+                      Shopify.PaymentButton.init({
+                        target: dynamicCheckoutWrapper,
+                        product: {
+                          id: parseInt(productData.dataset.productId),
+                          variant: parseInt(productData.dataset.selectedVariantId),
+                          title: document.querySelector('.product__title')?.innerText || '{{ product.title | escape }}',
+                          price: '{{ product.price | money_without_currency }}'
+                        }
+                      });
+                    }
+                  }
+
                   const bookingListContainerUl =
                     bookingsListContainer.querySelector('ul')
 
@@ -313,7 +331,8 @@ if (!customElements.get('product-form')) {
                   )
                 } else {
                   const noBookingFound = document.createElement('span')
-                  noBookingFound.innerText = "{{ 'products.product.inventory_out_of_stock' | t }}"
+                  noBookingFound.innerText =
+                    "{{ 'products.product.inventory_out_of_stock' | t }}"
                   noBookingFound.setAttribute('id', 'no-booking-found')
 
                   bookingsListContainer.style.marginTop = '2.5rem'
