@@ -258,40 +258,34 @@ if (!customElements.get('product-form')) {
                   if (productData.dataset.showDynamicCheckout === 'true') {
                     productSubmitBtn.classList.add('button--secondary')
   
-                    // Criar container para o botão de pagamento
                     const dynamicCheckoutWrapper = document.createElement('div')
                     dynamicCheckoutWrapper.className = 'shopify-payment-button'
                     productFormBtns.appendChild(dynamicCheckoutWrapper)
   
-                    // Criar botão de pagamento com texto traduzido
                     const paymentButton = document.createElement('button')
                     paymentButton.className =
                       'shopify-payment-button__button shopify-payment-button__button--unbranded'
                     paymentButton.type = 'button'
   
-                    // Usar a tradução para o botão de checkout
                     paymentButton.textContent =
                       "{{ 'sections.cart.checkout' | t }}"
   
                     dynamicCheckoutWrapper.appendChild(paymentButton)
   
-                    // Adicionar evento de clique
                     paymentButton.addEventListener('click', function () {
-                      // Criar formulário virtual
                       const virtualForm = document.createElement('form')
                       virtualForm.method = 'post'
-                      virtualForm.action = '/checkout'
+                      virtualForm.action = '/cart/add'
   
-                      // Adicionar campo da variante
                       const variantInput = document.createElement('input')
                       variantInput.type = 'hidden'
                       variantInput.name = 'id'
                       variantInput.value = productData.dataset.selectedVariantId
                       virtualForm.appendChild(variantInput)
   
-                      // Adicionar campo do agendamento
                       const bookingId =
                         document.getElementById('booking-id-field')?.value
+                      
                       if (bookingId) {
                         const bookingInput = document.createElement('input')
                         bookingInput.type = 'hidden'
@@ -302,12 +296,12 @@ if (!customElements.get('product-form')) {
   
                       document.body.appendChild(virtualForm)
                       virtualForm.submit()
+                        .then(() => window.location.href = '/checkout')
                     })
                   } else {
                     productSubmitBtn.classList.add('button--primary')
                   }
   
-                  // Restante do código para os horários...
                   const bookingListContainerUl =
                     bookingsListContainer.querySelector('ul')
                   bookingListContainerUl.append(
@@ -353,7 +347,13 @@ if (!customElements.get('product-form')) {
                     })
                   )
                 } else {
-                  // Código para quando não há horários disponíveis
+                  const noBookingFound = document.createElement('span')
+                  noBookingFound.innerText =
+                    "{{ 'products.product.inventory_out_of_stock' | t }}"
+                  noBookingFound.setAttribute('id', 'no-booking-found')
+
+                  bookingsListContainer.style.marginTop = '2.5rem'
+                  bookingsListContainer.append(noBookingFound)
                 }
               }
             })
