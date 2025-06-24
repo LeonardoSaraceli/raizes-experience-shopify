@@ -12,6 +12,24 @@
     "slideshow_xwUVtf": {
       "type": "slideshow",
       "blocks": {
+        "slide_FWtbem": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/10.png",
+            "image_overlay_opacity": 0,
+            "heading": "<strong>TRILHAS DIÁRIAS NO RJ</strong>",
+            "heading_size": "h1",
+            "subheading": "Partidas todos os dias, guias especializados e vistas incríveis em cada passo.",
+            "button_label": "Agendar agora",
+            "link": "shopify://collections/saidas-diarias",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-left",
+            "text_alignment": "left",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-3"
+          }
+        },
         "slide_Ub3TxH": {
           "type": "slide",
           "settings": {
@@ -30,15 +48,15 @@
             "color_scheme": "scheme-3"
           }
         },
-        "slide_FWtbem": {
+        "slide_ezzdkR": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/10.png",
+            "image": "shopify://shop_images/Banners_Site_Raizes_Experience_3.png",
             "image_overlay_opacity": 0,
-            "heading": "<strong>TRILHAS DIÁRIAS NO RJ</strong>",
+            "heading": "<strong>SEU PRÓXIMO DESTINO COMEÇA AQUI</strong>",
             "heading_size": "h1",
-            "subheading": "Partidas todos os dias, guias especializados e vistas incríveis em cada passo.",
-            "button_label": "Agendar agora",
+            "subheading": "<strong>Passagens </strong>aéreas com <strong>tarifas exclusivas</strong>, zero burocracia e atendimento 24 h",
+            "button_label": "Encontrar minhas passagens",
             "link": "shopify://collections/saidas-diarias",
             "button_style_secondary": false,
             "show_text_box": false,
@@ -50,8 +68,9 @@
         }
       },
       "block_order": [
+        "slide_FWtbem",
         "slide_Ub3TxH",
-        "slide_FWtbem"
+        "slide_ezzdkR"
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
