@@ -30,27 +30,28 @@
             "color_scheme": "scheme-3"
           }
         },
-        "slide_6XwYxx": {
+        "slide_Q7ptGm": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Banners_Site_Raizes_Experience_1.png",
             "image_overlay_opacity": 0,
-            "heading": "Slide de imagem",
+            "heading": "<strong>PLANEJE SUA PRÓXIMA VIAGEM COM A GENTE</strong>",
             "heading_size": "h1",
-            "subheading": "Conte a história de sua marca com vídeos e imagens",
-            "button_label": "Etiqueta de botão",
-            "link": "",
+            "subheading": "Pacotes completos, passagens e experiências personalizadas em todo o Brasil",
+            "button_label": "Cote sua passagem aqui",
+            "link": "shopify://collections/saidas-diarias",
             "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
+            "show_text_box": false,
+            "box_align": "middle-left",
+            "text_alignment": "left",
             "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "color_scheme": "scheme-1"
           }
         }
       },
       "block_order": [
         "slide_Ub3TxH",
-        "slide_6XwYxx"
+        "slide_Q7ptGm"
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
