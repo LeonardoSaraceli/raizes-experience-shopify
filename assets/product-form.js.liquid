@@ -261,12 +261,8 @@ if (!customElements.get('product-form')) {
                   const productSubmitBtn =
                     productFormBtns.querySelector('button')
                   if (productData.dataset.showDynamicCheckout === 'true') {
-                    productSubmitBtn.classList.add('button--secondary')
-                  } else {
-                    productSubmitBtn.classList.add('button--primary')
-                  }
-
-                  if (productData.dataset.show-dynamic-checkout) {
+                    productSubmitBtn.classList.add('button--secondary');
+                    
                     const dynamicCheckoutWrapper = document.createElement('div');
                     dynamicCheckoutWrapper.className = 'shopify-payment-button';
                     productFormBtns.appendChild(dynamicCheckoutWrapper);
@@ -282,6 +278,8 @@ if (!customElements.get('product-form')) {
                         }
                       });
                     }
+                  } else {
+                    productSubmitBtn.classList.add('button--primary');
                   }
 
                   const bookingListContainerUl =
