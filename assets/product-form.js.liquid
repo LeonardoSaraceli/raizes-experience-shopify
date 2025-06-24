@@ -175,15 +175,12 @@ if (!customElements.get('product-form')) {
             return
           }
 
+          checkAvailabilityBtn.disabled = true
+
           const bookingsListContainer = document.getElementById(
             'booking-list-container'
           )
-
-          const bookingListContainerUl =
-            bookingsListContainer.querySelector('ul')
-
           bookingsListContainer.innerHTML = ''
-          checkAvailabilityBtn.disabled = true
 
           const productId =
             document.getElementById('product-data')?.dataset.productId
@@ -201,49 +198,128 @@ if (!customElements.get('product-form')) {
             })
             .then((data) => {
               if (data && data.bookings) {
-                bookingsListContainer.style.display = 'block'
-                bookingListContainerUl.append(
-                  ...data.bookings.map((booking, index) => {
-                    const li = document.createElement('li')
-                    const bookingInput =
-                      document.getElementById('booking-id-field')
+                if (data.bookings.length > 0) {
+                  const productData = document.getElementById('product-data')
+                  const sectionId = productData.dataset.sectionId
+                  const translations = JSON.parse(
+                    productData.dataset.translations
+                  )
 
-                    if (index === 0) {
-                      li.classList.add('active')
+                  const inventoryPolicy = productData.dataset.inventoryPolicy
+                  const inventoryManagement =
+                    productData.dataset.inventoryManagement
+                  const inventoryQuantity = parseInt(
+                    productData.dataset.inventoryQuantity
+                  )
+                  const quantityRuleMin = parseInt(
+                    productData.dataset.quantityRuleMin
+                  )
 
-                      if (bookingInput) {
-                        bookingInput.value = booking.id
-                      }
+                  const checkAgainstInventory = !(
+                    inventoryManagement !== 'shopify' ||
+                    inventoryPolicy === 'continue'
+                  )
+
+                  const quantityRuleSoldout =
+                    checkAgainstInventory && quantityRuleMin > inventoryQuantity
+
+                  const isVariantAvailable =
+                    productData.dataset.productVariantAvailable === 'true'
+
+                  bookingsListContainer.innerHTML = `
+                  <ul></ul>
+                  <div class="product-form__buttons"></div>
+                `
+
+                  const productFormBtns = bookingsListContainer.querySelector(
+                    '.product-form__buttons'
+                  )
+                  productFormBtns.innerHTML = `
+                  <button
+                    id="ProductSubmitButton-${sectionId}"
+                    type="submit"
+                    name="add"
+                    class="product-form__submit button button--full-width"
+                    ${
+                      !isVariantAvailable || quantityRuleSoldout
+                        ? 'disabled'
+                        : ''
                     }
+                  >
+                    <span>
+                      ${
+                        !isVariantAvailable
+                          ? translations.unavailable
+                          : quantityRuleSoldout
+                          ? translations.sold_out
+                          : translations.add_to_cart
+                      }
+                    </span>
+                  </button>
+                `
 
-                    li.addEventListener('click', function () {
-                      if (li.className !== 'active') {
-                        const currentActive =
-                          bookingListContainerUl.querySelector('li.active')
+                  const productSubmitBtn =
+                    productFormBtns.querySelector('button')
+                  if (productData.dataset.showDynamicCheckout === 'true') {
+                    productSubmitBtn.classList.add('button--secondary')
+                  } else {
+                    productSubmitBtn.classList.add('button--primary')
+                  }
 
-                        if (currentActive)
-                          currentActive.classList.remove('active')
+                  const bookingListContainerUl =
+                    bookingsListContainer.querySelector('ul')
+
+                  bookingListContainerUl.append(
+                    ...data.bookings.map((booking, index) => {
+                      const li = document.createElement('li')
+                      const bookingInput =
+                        document.getElementById('booking-id-field')
+
+                      if (index === 0) {
+                        li.classList.add('active')
 
                         if (bookingInput) {
                           bookingInput.value = booking.id
                         }
-
-                        li.classList.add('active')
                       }
-                    })
 
-                    li.setAttribute('booking_id', booking.id)
-                    li.textContent = new Date(
-                      booking.start_datetime
-                    ).toLocaleTimeString([], {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: false,
-                    })
+                      li.addEventListener('click', function () {
+                        if (li.className !== 'active') {
+                          const currentActive =
+                            bookingListContainerUl.querySelector('li.active')
 
-                    return li
-                  })
-                )
+                          if (currentActive)
+                            currentActive.classList.remove('active')
+
+                          if (bookingInput) {
+                            bookingInput.value = booking.id
+                          }
+
+                          li.classList.add('active')
+                        }
+                      })
+
+                      li.setAttribute('booking_id', booking.id)
+                      li.textContent = new Date(
+                        booking.start_datetime
+                      ).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                      })
+
+                      return li
+                    })
+                  )
+                } else {
+                  const noBookingFound = document.createElement('span')
+                  noBookingFound.innerText =
+                    "{{ 'products.product.inventory_out_of_stock' | t }}"
+                  noBookingFound.setAttribute('id', 'no-booking-found')
+
+                  bookingsListContainer.style.marginTop = '2.5rem'
+                  bookingsListContainer.append(noBookingFound)
+                }
               }
             })
             .catch(console.error)

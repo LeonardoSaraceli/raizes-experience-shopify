@@ -10,7 +10,24 @@
   Usage:
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
 {% endcomment %}
-<div id="product-data" data-product-id="{{ product.id }}"></div>
+<div
+  id="product-data"
+  data-product-id="{{ product.id }}"
+  data-section-id="{{ section.id }}"
+  data-show-dynamic-checkout="{{ show_dynamic_checkout }}"
+  data-product-variant-available="{{ product.selected_or_first_available_variant.available }}"
+  data-inventory-quantity="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+  data-inventory-policy="{{ product.selected_or_first_available_variant.inventory_policy }}"
+  data-inventory-management="{{ product.selected_or_first_available_variant.inventory_management }}"
+  data-quantity-rule-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+  data-translations='
+    {
+       "unavailable": {{ "products.product.unavailable" | t | json }},
+       "sold_out": {{ "products.product.sold_out" | t | json }},
+       "add_to_cart": {{ "products.product.add_to_cart" | t | json }}
+    }
+  '
+></div>
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
