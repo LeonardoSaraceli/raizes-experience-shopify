@@ -261,9 +261,9 @@ if (!customElements.get('product-form')) {
                   const productSubmitBtn =
                     productFormBtns.querySelector('button')
 
-                  console.log(productData.dataset.showDynamicCheckout)
+                  console.log(productData.dataset)
                   
-                  if (productData.dataset.showDynamicCheckout === 'true') {
+                  if (productData.dataset.showDynamicCheckout) {
                     productSubmitBtn.classList.add('button--secondary')
                     
                     const dynamicCheckoutWrapper = document.createElement('div')
