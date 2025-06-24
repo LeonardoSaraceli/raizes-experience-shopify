@@ -28,6 +28,7 @@ product-info {
   display: grid;
   grid-template-columns: repeat(2, max-content);
   gap: 1rem;
+  align-items: end;
 }
 
 @media screen and (max-width: 360px) {
@@ -36,15 +37,26 @@ product-info {
   }
 }
 
+.shopify-payment-button {
+  margin-top: 12px;
+  width: 100%;
+}
+
+#start-datetime-container {
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+}
+
+#start-datetime-container > input {
+  max-height: 47px;
+}
+
 #booking-form-container > button {
   padding: 1.5rem;
   background: transparent;
   border: 1px solid currentColor;
   cursor: pointer;
-}
-
-#booking-list-container {
-  display: none;
+  max-height: 47px;
 }
 
 #booking-list-container ul {
