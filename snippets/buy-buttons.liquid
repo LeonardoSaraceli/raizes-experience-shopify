@@ -79,8 +79,10 @@
         {%- endif -%}
 
         <div id="booking-form-container">
-          <label for="start-datetime">Data</label>
-          <input type="date" id="start-datetime" name="start-datetime" min="">
+          <div>
+            <label for="start-datetime">Data</label>
+            <input type="date" id="start-datetime" name="start-datetime" min="">
+          </div>
 
           <script>
             document.getElementById('start-datetime').min = new Date().toISOString().split('T')[0];
