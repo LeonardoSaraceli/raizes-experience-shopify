@@ -21,7 +21,7 @@
             "heading_size": "h1",
             "subheading": "Partidas todos os dias, guias especializados e vistas incríveis em cada passo.",
             "button_label": "Agendar agora",
-            "link": "shopify://collections/saidas-diarias",
+            "link": "shopify://collections/trilhas-do-rio",
             "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-left",
@@ -69,7 +69,7 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "saidas-diarias",
+        "collection": "trilhas-do-rio",
         "products_to_show": 8,
         "title": "{{ section.settings.collection.title }}",
         "heading_size": "h2",
